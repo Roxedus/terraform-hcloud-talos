@@ -90,7 +90,7 @@ locals {
         registries = var.registries
       }
       cluster = {
-        allowSchedulingOnControlPlanes = var.worker_count <= 0
+        allowSchedulingOnControlPlanes = anytrue([var.enable_controlplane_workload, var.worker_count <= 0])
         network = {
           dnsDomain = var.cluster_domain
           podSubnets = [

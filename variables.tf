@@ -94,6 +94,12 @@ variable "firewall_talos_api_source" {
   EOF
 }
 
+variable "enable_controlplane_workload" {
+  type        = bool
+  default     = false
+  description = "If true, the control plane nodes will also run workloads."
+}
+
 # Network
 variable "enable_floating_ip" {
   type        = bool
