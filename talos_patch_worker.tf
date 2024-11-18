@@ -10,6 +10,7 @@ locals {
         }
         certSANs = local.cert_SANs
         kubelet = {
+          extraMounts = var.kubelet_extra_mounts
           extraArgs = merge(
             {
               "cloud-provider"             = "external"

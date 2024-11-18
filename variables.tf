@@ -262,6 +262,17 @@ variable "kubelet_extra_args" {
   description = "Additional arguments to pass to kubelet."
 }
 
+variable "kubelet_extra_mounts" {
+  type = list(object({
+    destination = string
+    type        = string
+    source      = string
+    options     = optional(list(string))
+  }))
+  default     = []
+  description = "Additional mounts to pass to kubelet."
+}
+
 variable "kube_api_extra_args" {
   type        = map(string)
   default     = {}
