@@ -37,3 +37,23 @@ output "hetzner_network_id" {
   description = "Network ID of the network created at cluster creation"
   value       = hcloud_network.this.id
 }
+
+output "hetzner_control_planes" {
+  description = "List of control plane nodes as objects"
+  value = [for control_plane in hcloud_server.control_planes : {
+    name = control_plane.name
+    id   = control_plane.id
+    ipv4 = control_plane.ipv4_address
+    ipv6 = var.enable_ipv6 ? control_plane.ipv6_address : false
+  }]
+}
+
+output "hetzner_workers" {
+  description = "List of worker nodes as objects"
+  value = var.worker_count <= 0 ? [for worker in hcloud_server.workers : {
+    name = worker.name
+    id   = worker.id
+    ipv4 = worker.ipv4_address
+    ipv6 = var.enable_ipv6 ? worker.ipv6_address : false
+  }] : []
+}
